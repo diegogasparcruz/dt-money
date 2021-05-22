@@ -3,21 +3,21 @@
     <div>
       <header>
         <p>Entradas</p>
-        <img src="@/assets/income.svg" alt="Entradas" />
+        <img :src="incomeImg" alt="Entradas" />
       </header>
       <strong> R$ 6.0000 </strong>
     </div>
     <div>
       <header>
         <p>Saídas</p>
-        <img src="@/assets/outcome.svg" alt="Saídas" />
+        <img :src="outcomeImg" alt="Saídas" />
       </header>
       <strong> -R$ 2.0000 </strong>
     </div>
     <div class="highlight-background">
       <header>
         <p>Total</p>
-        <img src="@/assets/total.svg" alt="Total" />
+        <img :src="totalImg" alt="Total" />
       </header>
       <strong> R$ 4.0000 </strong>
     </div>
@@ -25,8 +25,17 @@
 </template>
 
 <script>
+import incomeImg from '@/assets/income.svg';
+import outcomeImg from '@/assets/outcome.svg';
+import totalImg from '@/assets/total.svg';
+
 export default {
   name: 'Summary',
+  data: () => ({
+    incomeImg,
+    outcomeImg,
+    totalImg,
+  }),
 };
 </script>
 

@@ -1,15 +1,18 @@
 <template>
   <div class="container">
     <header>
-      <img src="@/assets/logo.svg" alt="dt money" />
+      <img :src="logoImg" alt="dt money" />
       <button type="button" @click="openModal">Nova transação</button>
     </header>
   </div>
 </template>
 
 <script>
+import logoImg from '@/assets/logo.svg';
+
 export default {
   name: 'Header',
+  data: () => ({ logoImg }),
   methods: {
     openModal() {
       this.$emit('openModal');
