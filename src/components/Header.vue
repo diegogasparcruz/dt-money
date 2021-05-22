@@ -2,7 +2,7 @@
   <div class="container">
     <header>
       <img src="@/assets/logo.svg" alt="dt money" />
-      <button type="button">Nova transação</button>
+      <button type="button" @click="openModal">Nova transação</button>
     </header>
   </div>
 </template>
@@ -10,6 +10,11 @@
 <script>
 export default {
   name: 'Header',
+  methods: {
+    openModal() {
+      this.$emit('openModal');
+    },
+  },
 };
 </script>
 

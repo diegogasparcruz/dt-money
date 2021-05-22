@@ -1,15 +1,18 @@
 <template>
   <div class="home">
-    <Header />
+    <Header @openModal="toggleModal" />
     <main>
       <Summary />
       <TransactionsTable />
     </main>
+
+    <NewTransactionModal ref="NewTransactionModal" />
   </div>
 </template>
 
 <script>
 import { Header, Summary, TransactionsTable } from '../components';
+import NewTransactionModal from '../components/NewTransactionModal.vue';
 
 export default {
   name: 'Home',
@@ -17,6 +20,12 @@ export default {
     Header,
     Summary,
     TransactionsTable,
+    NewTransactionModal,
+  },
+  methods: {
+    toggleModal() {
+      this.$refs.NewTransactionModal.openModal();
+    },
   },
 };
 </script>
