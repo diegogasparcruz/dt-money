@@ -171,11 +171,11 @@ export default {
     }
 
     .radio-box__deposity {
-      background: lighten(#33CC95, 90%);
+      background: lighten(#33CC95, 80%);
     }
 
     .radio-box__withdraw {
-      background: lighten(#E52E4D, 90%);
+      background: lighten(#E52E4D, 80%);
     }
   }
 }
