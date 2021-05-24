@@ -59,11 +59,6 @@ export default {
       this.type = type;
     },
   },
-  watch: {
-    showModal(val) {
-      console.log(val);
-    },
-  },
 };
 </script>
 
