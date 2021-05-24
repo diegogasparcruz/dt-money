@@ -5,9 +5,12 @@ import router from './router';
 import store from './store';
 
 import '@kouts/vue-modal/dist/vue-modal.css';
+import { makeServer } from './server';
 
 Vue.config.productionTip = false;
 Vue.component('Modal', VueModal);
+
+makeServer();
 
 new Vue({
   router,
