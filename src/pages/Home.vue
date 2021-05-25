@@ -3,7 +3,7 @@
     <Header @openModal="toggleModal" />
     <main>
       <Summary />
-      <TransactionsTable />
+      <TransactionsTable :transactions="transactions" />
     </main>
 
     <NewTransactionModal ref="NewTransactionModal" />
@@ -11,8 +11,11 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import { Header, Summary, TransactionsTable } from '../components';
 import NewTransactionModal from '../components/NewTransactionModal.vue';
+
+const { mapState, mapActions } = createNamespacedHelpers('transactions');
 
 export default {
   name: 'Home',
@@ -22,10 +25,17 @@ export default {
     TransactionsTable,
     NewTransactionModal,
   },
+  computed: {
+    ...mapState(['transactions']),
+  },
   methods: {
+    ...mapActions(['findAll']),
     toggleModal() {
       this.$refs.NewTransactionModal.openModal();
     },
+  },
+  created() {
+    this.findAll();
   },
 };
 </script>

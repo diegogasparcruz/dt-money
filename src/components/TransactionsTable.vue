@@ -10,17 +10,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Freelance de website</td>
-          <td class="deposit">R$ 6.000,00</td>
-          <td>Dev</td>
-          <td>12/02/2021</td>
-        </tr>
-        <tr>
-          <td>Aluguel</td>
-          <td class="withdraw">R$ 4.000,00</td>
-          <td>Casa</td>
-          <td>14/02/2021</td>
+        <tr v-for="transaction in transactions" :key="transaction.id">
+          <td>{{ transaction.title }}</td>
+          <td :class="transaction.type">{{ transaction.amount | toMoney }}</td>
+          <td>{{ transaction.category }}</td>
+          <td>{{ transaction.createdAt | toDate }}</td>
         </tr>
       </tbody>
     </table>
@@ -30,6 +24,10 @@
 <script>
 export default {
   name: 'TransactionsTable',
+  props: {
+    transactions: Array,
+    default: [],
+  },
 };
 </script>
 
