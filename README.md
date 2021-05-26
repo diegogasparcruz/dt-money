@@ -15,7 +15,7 @@ This project was developed using cutting edge front-end technologies.
 - [Vue](https://vuejs.org/)
 - [Vuex](https://vuex.vuejs.org/)
 - [Stylus](https://stylus-lang.com/)
-- [MijareJS](https://miragejs.com/)
+- [MirageJS](https://miragejs.com/)
 
 ## 🚀 Getting started
 
