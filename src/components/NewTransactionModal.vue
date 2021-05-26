@@ -6,26 +6,38 @@
     wrapperClass="modal-wrapper"
     modalClass="modal-content"
   >
-    <form class="form-container" @submit.prevent="() => {}">
-      <input placeholder="Título" />
-      <input type="number" placeholder="Valor" />
+    <form class="form-container" @submit.prevent="save">
+      <input
+        :value="form.title"
+        @input="(e) => setForm({ key: 'title', value: e.target.value })"
+        placeholder="Título"
+      />
+
+      <input
+        type="number"
+        :value="form.amount"
+        @input="(e) => setForm({ key: 'amount', value: e.target.value })"
+        placeholder="Valor"
+      />
 
       <div class="transaction-type-container">
         <button
-          @click="setType('deposity')"
+          type="button"
+          @click="setForm({ key: 'type', value: 'deposity' })"
           :class="[
             'radio-box',
-            type === 'deposity' ? 'radio-box__deposity' : '',
+            form.type === 'deposity' ? 'radio-box__deposity' : '',
           ]"
         >
           <img :src="incomeImg" alt="Entrada" />
           <span>Entrada</span>
         </button>
         <button
-          @click="setType('withdraw')"
+          type="button"
+          @click="setForm({ key: 'type', value: 'withdraw' })"
           :class="[
             'radio-box',
-            type === 'withdraw' ? 'radio-box__withdraw' : '',
+            form.type === 'withdraw' ? 'radio-box__withdraw' : '',
           ]"
         >
           <img :src="outcomeImg" alt="Saída" />
@@ -33,13 +45,22 @@
         </button>
       </div>
 
-      <input placeholder="Categoria" />
+      <input
+        :value="form.category"
+        @input="(e) => setForm({ key: 'category', value: e.target.value })"
+        placeholder="Categoria"
+      />
+
       <button type="submit">Cadastrar</button>
     </form>
   </Modal>
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapMutations, mapActions } =
+  createNamespacedHelpers('transactions');
+
 import incomeImg from '@/assets/income.svg';
 import outcomeImg from '@/assets/outcome.svg';
 
@@ -51,47 +72,22 @@ export default {
     incomeImg,
     outcomeImg,
   }),
+  computed: {
+    ...mapState(['form']),
+  },
   methods: {
-    openModal() {
+    ...mapMutations(['setForm']),
+    ...mapActions(['saveTransaction']),
+    toggleModal() {
       this.showModal = !this.showModal;
     },
-    setType(type) {
-      this.type = type;
+    save() {
+      this.saveTransaction();
+      this.toggleModal();
     },
   },
 };
 </script>
-
-<style lang="stylus">
-.modal-wrapper {
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-content {
-  width: 100%;
-  max-width: 576px;
-  background: var(--background);
-  padding: 1rem;
-  position: relative;
-  border-radius: 0.24rem;
-
-  .vm-titlebar {
-    h3 {
-      color: var(--text-title);
-      font-weight: 600;
-      font-size: 1.5rem;
-    }
-  }
-}
-</style>
 
 <style lang="stylus" scoped>
 .form-container{
@@ -171,6 +167,37 @@ export default {
 
     .radio-box__withdraw {
       background: lighten(#E52E4D, 80%);
+    }
+  }
+}
+</style>
+
+<style lang="stylus">
+.modal-wrapper {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 576px;
+  background: var(--background);
+  padding: 1rem;
+  position: relative;
+  border-radius: 0.24rem;
+
+  .vm-titlebar {
+    h3 {
+      color: var(--text-title);
+      font-weight: 600;
+      font-size: 1.5rem;
     }
   }
 }

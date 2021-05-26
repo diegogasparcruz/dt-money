@@ -3,7 +3,7 @@ import { transactionService } from '../../services';
 const getFormInitialState = () => ({
   title: '',
   amount: 0,
-  type: '',
+  type: 'deposity',
   category: '',
 });
 
@@ -15,15 +15,30 @@ const state = {
 const getters = {};
 
 const mutations = {
-  SET_TRANSACTIONS: (state, transactions) => {
+  setTransactions: (state, transactions) => {
     state.transactions = transactions;
+  },
+  setForm: (state, { key, value }) => {
+    state.form[key] = value;
+  },
+  clearForm: (state) => {
+    state.form = getFormInitialState();
   },
 };
 
 const actions = {
-  findAll: async ({ commit }) => {
+  findAllTransactions: async ({ commit }) => {
     const { data } = await transactionService.getAll();
-    commit('SET_TRANSACTIONS', data.transactions);
+    commit('setTransactions', data.transactions);
+  },
+  saveTransaction: async ({ state, commit }) => {
+    const { data } = await transactionService.save({
+      ...state.form,
+      createdAt: new Date(),
+    });
+
+    commit('setTransactions', [...state.transactions, data.transaction]);
+    commit('clearForm');
   },
 };
 
