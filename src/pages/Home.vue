@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header @openModal="toggleModal" />
+    <Header @openModal="openModal" />
     <main>
       <Summary />
       <TransactionsTable :transactions="transactions" />
@@ -29,13 +29,13 @@ export default {
     ...mapState(['transactions']),
   },
   methods: {
-    ...mapActions(['findAll']),
-    toggleModal() {
-      this.$refs.NewTransactionModal.openModal();
+    ...mapActions(['findAllTransactions']),
+    openModal() {
+      this.$refs.NewTransactionModal.toggleModal();
     },
   },
   created() {
-    this.findAll();
+    this.findAllTransactions();
   },
 };
 </script>
