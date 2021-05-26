@@ -3,7 +3,7 @@ import { transactionService } from '../../services';
 const getFormInitialState = () => ({
   title: '',
   amount: 0,
-  type: 'deposity',
+  type: 'deposit',
   category: '',
 });
 
@@ -12,7 +12,30 @@ const state = {
   form: getFormInitialState(),
 };
 
-const getters = {};
+const getters = {
+  summary: (state) => {
+    const summary = state.transactions.reduce(
+      (acc, transaction) => {
+        if (transaction.type === 'deposit') {
+          acc.deposits += transaction.amount;
+          acc.total += transaction.amount;
+        } else {
+          acc.withdraws += transaction.amount;
+          acc.total -= transaction.amount;
+        }
+
+        return acc;
+      },
+      {
+        deposits: 0,
+        withdraws: 0,
+        total: 0,
+      }
+    );
+
+    return summary;
+  },
+};
 
 const mutations = {
   setTransactions: (state, transactions) => {

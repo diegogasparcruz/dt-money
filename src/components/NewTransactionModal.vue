@@ -16,17 +16,19 @@
       <input
         type="number"
         :value="form.amount"
-        @input="(e) => setForm({ key: 'amount', value: e.target.value })"
+        @input="
+          (e) => setForm({ key: 'amount', value: Number(e.target.value) })
+        "
         placeholder="Valor"
       />
 
       <div class="transaction-type-container">
         <button
           type="button"
-          @click="setForm({ key: 'type', value: 'deposity' })"
+          @click="setForm({ key: 'type', value: 'deposit' })"
           :class="[
             'radio-box',
-            form.type === 'deposity' ? 'radio-box__deposity' : '',
+            form.type === 'deposit' ? 'radio-box__deposit' : '',
           ]"
         >
           <img :src="incomeImg" alt="Entrada" />
@@ -68,7 +70,6 @@ export default {
   name: 'NewTransactionModal',
   data: () => ({
     showModal: false,
-    type: 'deposity',
     incomeImg,
     outcomeImg,
   }),
@@ -161,7 +162,7 @@ export default {
       }
     }
 
-    .radio-box__deposity {
+    .radio-box__deposit {
       background: lighten(#33CC95, 80%);
     }
 
